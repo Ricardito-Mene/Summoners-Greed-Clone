@@ -13,7 +13,7 @@ static float musicVolume = 0.25f;
 
 bool platform_create_window(int width, int height, char* title);
 void platform_update_window();
-void* platform_load_gl_function(char* funName);
+void* platform_load_gl_function(const char* funName);
 void platform_swap_buffers();
 void platform_set_vsync(bool vSync);
 void* platform_load_dynamic_library(char* dll);

@@ -8,8 +8,6 @@
 // #############################################################################
 //                           Renderer Constants
 // #############################################################################
-int RENDER_OPTION_FLIP_X = BIT(0);
-int RENDER_OPTION_FLIP_Y = BIT(1);
 
 // #############################################################################
 //                           Renderer Structs
@@ -74,7 +72,7 @@ static RenderData* renderData;
 // #############################################################################
 //                           Renderer Untility
 // #############################################################################
-IVec2 screen_to_world(IVec2 screenPos)
+inline IVec2 screen_to_world(IVec2 screenPos)
 {
   OrthographicCamera2D camera = renderData->gameCamera;
 
@@ -95,7 +93,7 @@ IVec2 screen_to_world(IVec2 screenPos)
   return {xPos, yPos};
 }
 
-int animate(float* time, int frameCount, float duration = 1.0f)
+inline int animate(float* time, int frameCount, float duration = 1.0f)
 {
   while(*time > duration)
   {
@@ -113,7 +111,7 @@ int animate(float* time, int frameCount, float duration = 1.0f)
   return animationIdx;
 }
 
-int get_material_idx(Material material = {})
+inline int get_material_idx(Material material = {})
 {
   // Convert from SRGB to linear color space, to be used in the shader, poggies
   material.color.r = powf(material.color.r, 2.2f);
@@ -132,7 +130,7 @@ int get_material_idx(Material material = {})
   return renderData->materials.add(material);
 }
 
-float get_layer(Layer layer, float subLayer = 0.0f)
+inline float get_layer(Layer layer, float subLayer = 0.0f)
 {
   float floatLayer = (float)layer;
   float layerStep = 1.0f / (float)LAYER_COUNT;
@@ -140,7 +138,7 @@ float get_layer(Layer layer, float subLayer = 0.0f)
   return result;
 }
 
-Transform get_transform(SpriteID spriteID, Vec2 pos, Vec2 size = {}, DrawData drawData = {})
+inline Transform get_transform(SpriteID spriteID, Vec2 pos, Vec2 size = {}, DrawData drawData = {})
 {
   Sprite sprite = get_sprite(spriteID);
   size = size? size: vec_2(sprite.size);
@@ -163,24 +161,24 @@ Transform get_transform(SpriteID spriteID, Vec2 pos, Vec2 size = {}, DrawData dr
 // #############################################################################
 //                           Renderer Functions
 // #############################################################################
-void draw_quad(Transform transform)
+inline void draw_quad(Transform transform)
 {
   renderData->transforms.add(transform);
 }
 
-void draw_quad(Vec2 pos, Vec2 size, DrawData drawData = {})
+inline void draw_quad(Vec2 pos, Vec2 size, DrawData drawData = {})
 {
   Transform transform = get_transform(SPRITE_WHITE, pos, size, drawData);
   renderData->transforms.add(transform);
 }
 
-void draw_sprite(SpriteID spriteID, Vec2 pos, DrawData drawData = {})
+inline void draw_sprite(SpriteID spriteID, Vec2 pos, DrawData drawData = {})
 {
   Transform transform = get_transform(spriteID, pos, {}, drawData);
   renderData->transforms.add(transform);
 }
 
-void draw_sprite(SpriteID spriteID, IVec2 pos, DrawData drawData = {})
+inline void draw_sprite(SpriteID spriteID, IVec2 pos, DrawData drawData = {})
 {
   draw_sprite(spriteID, vec_2(pos), drawData);
 }
@@ -188,19 +186,19 @@ void draw_sprite(SpriteID spriteID, IVec2 pos, DrawData drawData = {})
 // #############################################################################
 //                     Render Interface UI Rendering
 // #############################################################################
-void draw_ui_sprite(SpriteID spriteID, Vec2 pos, Vec2 size = {}, DrawData drawData = {})
+inline void draw_ui_sprite(SpriteID spriteID, Vec2 pos, Vec2 size = {}, DrawData drawData = {})
 {
   Transform transform = get_transform(spriteID, pos, size, drawData);
   renderData->uiTransforms.add(transform);
 }
 
-void draw_ui_sprite(SpriteID spriteID, Vec2 pos, DrawData drawData = {})
+inline void draw_ui_sprite(SpriteID spriteID, Vec2 pos, DrawData drawData = {})
 {
   Transform transform = get_transform(spriteID, pos, {}, drawData);
   renderData->uiTransforms.add(transform);
 }
 
-void draw_ui_sprite(SpriteID spriteID, IVec2 pos, DrawData drawData = {})
+inline void draw_ui_sprite(SpriteID spriteID, IVec2 pos, DrawData drawData = {})
 {
   draw_ui_sprite(spriteID, vec_2(pos), drawData);
 }
@@ -208,7 +206,7 @@ void draw_ui_sprite(SpriteID spriteID, IVec2 pos, DrawData drawData = {})
 // #############################################################################
 //                     Render Interface UI Font Rendering
 // #############################################################################
-void draw_ui_text(char* text, Vec2 pos, TextData textData = {})
+inline void draw_ui_text(char* text, Vec2 pos, TextData textData = {})
 {
   SM_ASSERT(text, "No Text Supplied!");
   if(!text)

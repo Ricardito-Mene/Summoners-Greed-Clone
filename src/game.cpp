@@ -122,7 +122,7 @@ void update_level(float dt)
     }
     if(player.speed.x < 0)
     {
-      player.renderOptions = RENDER_OPTION_FLIP_X;
+      player.renderOptions = RENDERING_OPTION_FLIP_X;
     }
 
     // Jump

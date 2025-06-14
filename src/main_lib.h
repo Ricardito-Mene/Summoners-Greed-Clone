@@ -194,7 +194,7 @@ struct BumpAllocator
   char* memory;
 };
 
-BumpAllocator make_bump_allocator(size_t size)
+inline BumpAllocator make_bump_allocator(size_t size)
 {
   BumpAllocator ba = {};
   
@@ -212,7 +212,7 @@ BumpAllocator make_bump_allocator(size_t size)
   return ba;
 }
 
-char* bump_alloc(BumpAllocator* bumpAllocator, size_t size)
+inline char* bump_alloc(BumpAllocator* bumpAllocator, size_t size)
 {
   char* result = nullptr;
 
@@ -243,14 +243,14 @@ inline void free_bump_allocator(BumpAllocator* allocator)
 // #############################################################################
 //                           File I/O
 // #############################################################################
-long long get_timestamp(const char* file)
+inline long long get_timestamp(const char* file)
 {
   struct stat file_stat = {};
   stat(file, &file_stat);
   return file_stat.st_mtime;
 }
 
-bool file_exists(const char* filePath)
+inline bool file_exists(const char* filePath)
 {
   SM_ASSERT(filePath, "No filePath supplied!");
 
@@ -264,7 +264,7 @@ bool file_exists(const char* filePath)
   return true;
 }
 
-long get_file_size(const char* filePath)
+inline long get_file_size(const char* filePath)
 {
   SM_ASSERT(filePath, "No filePath supplied!");
 
@@ -289,7 +289,7 @@ long get_file_size(const char* filePath)
 * memory and therefore want more control over where it 
 * is allocated
 */
-char* read_file(const char* filePath, int* fileSize, char* buffer)
+inline char* read_file(const char* filePath, int* fileSize, char* buffer)
 {
   SM_ASSERT(filePath, "No filePath supplied!");
   SM_ASSERT(fileSize, "No fileSize supplied!");
@@ -315,7 +315,7 @@ char* read_file(const char* filePath, int* fileSize, char* buffer)
   return buffer;
 }
 
-char* read_file(const char* filePath, int* fileSize, BumpAllocator* bumpAllocator)
+inline char* read_file(const char* filePath, int* fileSize, BumpAllocator* bumpAllocator)
 {
   char* file = nullptr;
   long fileSize2 = get_file_size(filePath);
@@ -330,7 +330,7 @@ char* read_file(const char* filePath, int* fileSize, BumpAllocator* bumpAllocato
   return file; 
 }
 
-void write_file(const char* filePath, char* buffer, int size)
+inline void write_file(const char* filePath, char* buffer, int size)
 {
   SM_ASSERT(filePath, "No filePath supplied!");
   SM_ASSERT(buffer, "No buffer supplied!");
@@ -345,7 +345,7 @@ void write_file(const char* filePath, char* buffer, int size)
   fclose(file);
 }
 
-bool copy_file(const char* fileName, const char* outputName, char* buffer)
+inline bool copy_file(const char* fileName, const char* outputName, char* buffer)
 {
   int fileSize = 0;
   char* data = read_file(fileName, &fileSize, buffer);
@@ -370,7 +370,7 @@ bool copy_file(const char* fileName, const char* outputName, char* buffer)
   return true;
 }
 
-bool copy_file(const char* fileName, const char* outputName, BumpAllocator* bumpAllocator)
+inline bool copy_file(const char* fileName, const char* outputName, BumpAllocator* bumpAllocator)
 {
   char* file = 0;
   long fileSize2 = get_file_size(fileName);
@@ -388,27 +388,27 @@ bool copy_file(const char* fileName, const char* outputName, BumpAllocator* bump
 // #############################################################################
 //                           Math stuff
 // #############################################################################
-int sign(int x)
+inline int sign(int x)
 {
   return (x >= 0)? 1 : -1;
 }
 
-float sign(float x)
+inline float sign(float x)
 {
   return (x >= 0.0f)? 1.0f : -1.0f;
 }
 
-int min(int a, int b)
+inline int min(int a, int b)
 {
   return (a < b)? a : b;
 }
 
-int max(int a, int b)
+inline int max(int a, int b)
 {
   return (a > b)? a : b;
 }
 
-long long max(long long a, long long b)
+inline long long max(long long a, long long b)
 {
   if(a > b)
   {
@@ -418,7 +418,7 @@ long long max(long long a, long long b)
   return b;
 }
 
-float max(float a, float b)
+inline float max(float a, float b)
 {
   if(a > b)
   {
@@ -428,7 +428,7 @@ float max(float a, float b)
   return b;
 }
 
-float min(float a, float b)
+inline float min(float a, float b)
 {
   if(a < b)
   {
@@ -438,7 +438,7 @@ float min(float a, float b)
   return b;
 }
 
-float approach(float current, float target, float increase)
+inline float approach(float current, float target, float increase)
 {
   if(current < target)
   {
@@ -447,7 +447,7 @@ float approach(float current, float target, float increase)
   return max(current - increase, target);
 }
 
-float lerp(float a, float b, float t)
+inline float lerp(float a, float b, float t)
 {
   return a + (b - a) * t;
 }
@@ -508,12 +508,12 @@ struct IVec2
   }
 };
 
-Vec2 vec_2(IVec2 v)
+inline Vec2 vec_2(IVec2 v)
 {
   return Vec2{(float)v.x, (float)v.y};
 }
 
-Vec2 lerp(Vec2 a, Vec2 b, float t)
+inline Vec2 lerp(Vec2 a, Vec2 b, float t)
 {
   Vec2 result;
   result.x = lerp(a.x, b.x, t);
@@ -521,7 +521,7 @@ Vec2 lerp(Vec2 a, Vec2 b, float t)
   return result;
 }
 
-IVec2 lerp(IVec2 a, IVec2 b, float t)
+inline IVec2 lerp(IVec2 a, IVec2 b, float t)
 {
   IVec2 result;
   result.x = (int)floorf(lerp((float)a.x, (float)b.x, t));
@@ -597,7 +597,7 @@ struct Mat4
   }
 };
 
-Mat4 orthographic_projection(float left, float right, float top, float bottom)
+inline Mat4 orthographic_projection(float left, float right, float top, float bottom)
 {
   Mat4 result = {};
   result.aw = -(right + left) / (right - left);
@@ -623,7 +623,7 @@ struct IRect
   IVec2 size;
 };
 
-bool point_in_rect(Vec2 point, Rect rect)
+inline bool point_in_rect(Vec2 point, Rect rect)
 {
   return (point.x >= rect.pos.x &&
           point.x <= rect.pos.x + rect.size.x &&
@@ -631,7 +631,7 @@ bool point_in_rect(Vec2 point, Rect rect)
           point.y <= rect.pos.y + rect.size.y);
 }
 
-bool point_in_rect(Vec2 point, IRect rect)
+inline bool point_in_rect(Vec2 point, IRect rect)
 {
   return (point.x >= rect.pos.x &&
           point.x <= rect.pos.x + rect.size.x &&
@@ -639,12 +639,12 @@ bool point_in_rect(Vec2 point, IRect rect)
           point.y <= rect.pos.y + rect.size.y);
 }
 
-bool point_in_rect(IVec2 point, IRect rect)
+inline bool point_in_rect(IVec2 point, IRect rect)
 {
   return point_in_rect(vec_2(point), rect);
 }
 
-bool rect_collision(IRect a, IRect b)
+inline bool rect_collision(IRect a, IRect b)
 {
   return a.pos.x < b.pos.x  + b.size.x && // Collision on Left of a and right of b
          a.pos.x + a.size.x > b.pos.x  && // Collision on Right of a and left of b
@@ -695,7 +695,7 @@ struct WAVFile
 	char dataBegin;
 };
 
-WAVFile* load_wav(char* path, BumpAllocator* bumpAllocator)
+inline WAVFile* load_wav(char* path, BumpAllocator* bumpAllocator)
 {
 	int fileSize = 0;
 	WAVFile* wavFile = (WAVFile*)read_file(path, &fileSize, bumpAllocator);

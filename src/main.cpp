@@ -24,6 +24,11 @@ KeyCodeID KeyCodeLookupTable[KEY_COUNT];
 //######################################################################
 //                     Game DLL Stuff
 //######################################################################
+int RENDERING_OPTION_FLIP_X = BIT(0);
+int RENDERING_OPTION_FLIP_Y = BIT(1);
+int RENDERING_OPTION_FONT = BIT(2);
+
+
 // This is the function pointer to update_game in game.cpp
 typedef decltype(update_game) update_game_type;
 static update_game_type* update_game_ptr;
@@ -98,7 +103,7 @@ int main(){
     
     while(running){
         float dt = get_delta_time();
-        reload_game_dll(&transientStorage);
+        //reload_game_dll(&transientStorage);
 
         //Update
         platform_update_window();
@@ -121,10 +126,7 @@ void update_game(GameState* gameStateIn,
                  Input* inputIn, 
                  SoundState* soundStateIn,
                  UIState* uiStateIn,
-                 float dt)
-{
-    update_game_ptr(gameStateIn ,renderDataIn, inputIn, soundStateIn, uiStateIn, dt);
-}
+                 float dt);
 
 double get_delta_time()
 {

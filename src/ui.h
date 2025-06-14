@@ -56,7 +56,7 @@ static UIState* uiState;
 // #############################################################################
 //                           UI Functions
 // #############################################################################
-void update_ui()
+inline void update_ui()
 {
   if(!key_is_down(KEY_MOUSE_LEFT) && 
      !key_released_this_frame(KEY_MOUSE_LEFT))
@@ -70,12 +70,12 @@ void update_ui()
   uiState->hotThisFrame = {};
 }
 
-void set_active(int ID)
+inline void set_active(int ID)
 {
   uiState->active = {ID, 0};
 }
 
-void set_hot(int ID, int layer = 0)
+inline void set_hot(int ID, int layer = 0)
 {
   if(uiState->hotThisFrame.layer <= layer)
   {
@@ -84,27 +84,27 @@ void set_hot(int ID, int layer = 0)
   }
 }
 
-bool is_active(int ID)
+inline bool is_active(int ID)
 {
   return uiState->active.ID && uiState->active.ID == ID;
 }
 
-bool is_hot(int ID)
+inline bool is_hot(int ID)
 {
   return uiState->hotLastFrame.ID && uiState->hotLastFrame.ID == ID;
 }
 
-bool ui_is_hot()
+inline bool ui_is_hot()
 {
   return uiState->hotLastFrame.ID || uiState->hotLastFrame.ID;
 }
 
-bool ui_is_active()
+inline bool ui_is_active()
 {
   return uiState->active.ID;
 }
 
-bool do_button(SpriteID spriteID, IVec2 pos, int ID, DrawData drawData = {})
+inline bool do_button(SpriteID spriteID, IVec2 pos, int ID, DrawData drawData = {})
 {
   Sprite sprite = get_sprite(spriteID);
 
@@ -148,7 +148,7 @@ bool do_button(SpriteID spriteID, IVec2 pos, int ID, DrawData drawData = {})
   return false;
 }
 
-void do_ui_text(const char* text, Vec2 pos, TextData textData = {})
+inline void do_ui_text(const char* text, Vec2 pos, TextData textData = {})
 {
   if (!text) 
   {
@@ -173,7 +173,7 @@ void do_format_ui_text(const char* format, Vec2 pos, TextData textData = {}, Arg
   do_ui_text(text, pos, textData);
 }
 
-void do_ui_quad(Vec2 pos, Vec2 size, DrawData drawData = {})
+inline void do_ui_quad(Vec2 pos, Vec2 size, DrawData drawData = {})
 {
   UIElement uiElement = 
   {

@@ -10,9 +10,14 @@
 #define ivec2 IVec2
 #define vec4 Vec4
 
+extern int RENDERING_OPTION_FLIP_X;
+extern int RENDERING_OPTION_FLIP_Y;
+extern int RENDERING_OPTION_FONT;
 // Inside Shader
 #else 
-
+const int RENDERING_OPTION_FLIP_X = 1 << 0;
+const int RENDERING_OPTION_FLIP_Y = 1 << 1;
+const int RENDERING_OPTION_FONT = 1 << 2;
 #define BIT(i) 1 << i
 
 // Inside Both
@@ -21,9 +26,7 @@
 // #############################################################################
 //                           Rendering Constants
 // #############################################################################
-int RENDERING_OPTION_FLIP_X = BIT(0);
-int RENDERING_OPTION_FLIP_Y = BIT(1);
-int RENDERING_OPTION_FONT = BIT(2);
+
 
 // #############################################################################
 //                           Rendering Structs

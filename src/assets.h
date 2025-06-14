@@ -35,7 +35,7 @@ struct Sprite
 //                     Assets Functions
 //######################################################################
 
-Sprite get_sprite(SpriteID spriteID)
+inline Sprite get_sprite(SpriteID spriteID)
 {
     Sprite sprite = {};
     sprite.frameCount = 1;

@@ -58,7 +58,7 @@ static SoundState* soundState;
 //######################################################################
 //                     Sound Functions
 //######################################################################
-void play_sound(const char* soundName, SoundOptions options = 0)
+inline void play_sound(const char* soundName, SoundOptions options = 0)
 {
     SM_ASSERT(soundName, "No Sound name supplied!!");
 
@@ -112,7 +112,7 @@ void play_sound(const char* soundName, SoundOptions options = 0)
     }
 }
 
-void stop_sound(char* soundName)
+inline void stop_sound(char* soundName)
 {
     play_sound(soundName, SOUND_OPTION_FADE_OUT);
 }

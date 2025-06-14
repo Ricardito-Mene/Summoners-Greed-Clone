@@ -58,7 +58,7 @@ static void APIENTRY gl_debug_callback(GLenum source, GLenum type, GLuint id, GL
   }
 }
 
-GLuint gl_create_shader(int shaderType, char*shaderPath, BumpAllocator* transientStorage)
+GLuint gl_create_shader(int shaderType, const char*shaderPath, BumpAllocator* transientStorage)
 {
   int fileSize = 0;
   char* shaderHeader = read_file("src/shader_header.h", &fileSize, transientStorage);
@@ -75,7 +75,7 @@ GLuint gl_create_shader(int shaderType, char*shaderPath, BumpAllocator* transien
     return 0;
   }
 
-  char* shaderSources[] =
+  const char* shaderSources[] =
   {
     "#version 430 core\r\n",
     shaderHeader,
@@ -102,7 +102,7 @@ GLuint gl_create_shader(int shaderType, char*shaderPath, BumpAllocator* transien
   return shaderID;
 }
 
-void load_font(char* filePath, int fontSize)
+void load_font(const char* filePath, int fontSize)
 {
   FT_Library fontLibrary;
   FT_Init_FreeType(&fontLibrary);
