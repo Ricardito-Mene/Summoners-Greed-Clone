@@ -60,6 +60,7 @@
         "clang-diagnostic-writable-strings",
         "clang-diagnostic-format-security",
         "clang-analyzer-deadcode.DeadStores",
-        "clang-analyzer-unix.Malloc"
+        "clang-analyzer-unix.Malloc",
+        "clang-analyzer-core.NullDereference"
     ]
 }

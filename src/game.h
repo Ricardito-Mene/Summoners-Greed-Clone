@@ -104,7 +104,20 @@ struct GameState
 //                     Game Globals
 //######################################################################
 
-static GameState* gameState;
+extern GameState* gameState;
+
+//######################################################################
+//                          Game Functions
+//######################################################################
+bool just_pressed(GameInputType type);
+bool is_down(GameInputType type);
+IVec2 get_grid_pos(IVec2 worldPos);
+Tile* get_tile(int x, int y);
+Tile* get_tile(IVec2 worldPos);
+IRect get_player_rect();
+IVec2 get_tile_pos(int x, int y);
+IRect get_tile_rect(int x, int y);
+IRect get_solid_rect(Solid solid);
 
 //######################################################################
 //                     Game Functions (Exposed)

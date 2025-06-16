@@ -1,5 +1,4 @@
-#define __(x) _(x)
-
+#pragma once
 
 enum Localization
 {
@@ -17,23 +16,12 @@ enum StringID
   STRING_COUNT
 };
 
-const char* Strings[(int)STRING_COUNT * (int)LOCALIZATION_COUNT];
-static Localization localization = LOCALIZATION_ENG;
+// Declara variáveis globais (definidas em texts.cpp)
+extern const char* Strings[(int)STRING_COUNT * (int)LOCALIZATION_COUNT];
+extern Localization localization;
 
-void init_strings()
-{
-  Strings[(int)LOCALIZATION_ENG + (int)STRING_CELESTE_CLONE] = "Celeste Clone";
-  Strings[(int)LOCALIZATION_ENG + (int)STRING_MADE_IN_CPP] = "Made in C++";
+// Inicializa as strings (chame no início do programa)
+void init_strings();
 
-  // German Translation, ö, Ö, ä, Ä, don't work like this!!!! I myself have no solution YET!
-  // But we will have a solution in the future
-  Strings[(int)LOCALIZATION_GER * STRING_COUNT + (int)STRING_CELESTE_CLONE] = "Celeste Klon";
-  Strings[(int)LOCALIZATION_GER * STRING_COUNT + (int)STRING_MADE_IN_CPP] = "Geschrieben in C++";
-}
-
-// This is the get string function
-
-const char* _(StringID stringID)
-{
-  return Strings[(int)localization * (int)STRING_COUNT + (int)stringID];
-}
+// Função para obter texto da localização atual
+extern const char* _(StringID stringID);

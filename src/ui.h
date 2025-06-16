@@ -51,13 +51,18 @@ struct UIState
 // #############################################################################
 //                           UI Globals
 // #############################################################################
-static UIState* uiState;
+extern UIState* uiState;
 
 // #############################################################################
 //                           UI Functions
 // #############################################################################
 inline void update_ui()
 {
+  if(!uiState)
+  {
+    SM_ERROR("uiState is nullptr!");
+    return;
+  }
   if(!key_is_down(KEY_MOUSE_LEFT) && 
      !key_released_this_frame(KEY_MOUSE_LEFT))
   {

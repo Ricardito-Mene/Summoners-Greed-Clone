@@ -21,6 +21,13 @@ KeyCodeID KeyCodeLookupTable[KEY_COUNT];
 
 #include "gl_renderer.cpp"
 
+Input* input = nullptr;
+RenderData* renderData = nullptr;
+GameState* gameState = nullptr;
+UIState* uiState = nullptr;
+SoundState* soundState = nullptr;
+
+
 //######################################################################
 //                     Game DLL Stuff
 //######################################################################

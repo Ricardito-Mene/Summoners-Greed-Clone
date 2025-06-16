@@ -8,4 +8,4 @@ warnings="-Wno-writable-strings -Wno-format-security -Wno-deprecated-declaration
 
 includes="-Ithird_party -Ithird_party/Include"
 
-clang++ $includes -g src/main.cpp src/game.cpp -omain.exe $libs $warnings $defines
+clang++ $includes -g src/main.cpp src/game.cpp src/texts.cpp src/scenes/*.cpp -omain.exe $libs $warnings $defines
